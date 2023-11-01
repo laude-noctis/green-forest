@@ -10,27 +10,27 @@ const lat = 40.73; // new york
 const lon = 73.93; 
 
 
-fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apple + pear + orange}&units=imperial`)
-  .then(response => response.json())
-  .then(data => {
-    let weatherData = data;
-    let weatherTemp = data.main.temp;
-    let weatherHumidity = data.main.humidity
-    let weatherWind = data.wind.speed;
+// fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apple + pear + orange}&units=imperial`)
+//   .then(response => response.json())
+//   .then(data => {
+//     let weatherData = data;
+//     let weatherTemp = data.main.temp;
+//     let weatherHumidity = data.main.humidity
+//     let weatherWind = data.wind.speed;
 
-    currentTemp.innerHTML = "Temp: " + weatherTemp + "℉";
-    currentWind.innerHTML = "Wind: " + weatherWind + " MPH";
-    currentHumidity.innerHTML = "Humidity: " + weatherHumidity + "%"
+//     currentTemp.innerHTML = "Temp: " + weatherTemp + "℉";
+//     currentWind.innerHTML = "Wind: " + weatherWind + " MPH";
+//     currentHumidity.innerHTML = "Humidity: " + weatherHumidity + "%"
 
-    console.log(data)
-    console.log(data.main.temp);
-    console.log(data.main.humidity);
-    console.log(data.wind);
+//     console.log(data)
+//     console.log(data.main.temp);
+//     console.log(data.main.humidity);
+//     console.log(data.wind);
 
-  })
-  .catch(error => {
-    console.error(error);
-});
+//   })
+//   .catch(error => {
+//     console.error(error);
+// });
 
 function getCity() {
     let input = document.getElementById("citysearch")

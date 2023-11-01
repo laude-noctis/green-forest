@@ -4,6 +4,7 @@ header {
     color: rgb(243, 235, 235);
     padding: 10px 10px;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .container {
@@ -12,22 +13,30 @@ header {
 
 .sidebar {
     width: 30%;
+    margin-right: 10px;
 }
 
 .main-content {
     flex-grow: 1;
+    margin-left: 10px;
+}
+
+.container {
+    display: flex;
 }
 
 .search {
     display: flex;
     flex-direction: column;
     border-bottom: black solid 2px;
-    justify-content: space-between;
 }
 
 #searchbtn {
     border: none;
-    background-color: lightblue
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .display-weather {
@@ -46,6 +55,11 @@ header {
 
 .display-condition {
     font-size: 20px;
+}
+
+.display-future-forecast {
+    display: flex;
+    justify-content: space-between;
 }
 
 .future-forecast {

@@ -12,10 +12,14 @@
         <h1>Weather Dashboard</h1>
     </header>
     <div class="container">
+
         <div class="sidebar">
             <section class="search">
                 <h2>Search for a City:</h2>
-                <input type="text" name="citysearch" id="citysearch">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="citysearch" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
                 <button id="searchbtn" onclick="getCity()">Search</button>
             </section>
         </div>
@@ -30,49 +34,51 @@
 
             <section class="forecast">
                 <h4 id="fiveday">5-Day Forecast:</h4>
-
-                <div class="future-forecast">
-                    <h4>date</h4>
-                    <p>Icon thingy</p>
-                    <p class="temp">Temp:</p>
-                    <p class="wind">Wind:</p>
-                    <p class="humidity">Humidity:</p>
+                
+                <div class="display-future-forecast">
+                    <div class="future-forecast">
+                        <h4>date</h4>
+                        <p>Icon thingy</p>
+                        <p class="temp">Temp:</p>
+                        <p class="wind">Wind:</p>
+                        <p class="humidity">Humidity:</p>
+                    </div>
+                
+                    <div class="future-forecast">
+                        <h4>date</h4>
+                        <p>Icon thingy</p>
+                        <p class="temp">Temp:</p>
+                        <p class="wind">Wind:</p>
+                        <p class="humidity">Humidity:</p>
+                    </div>
+                
+                    <div class="future-forecast">
+                        <h4>date</h4>
+                        <p>Icon thingy</p>
+                        <p class="temp">Temp:</p>
+                        <p class="wind">Wind:</p>
+                        <p class="humidity">Humidity:</p>
+                    </div>
+                
+                    <div class="future-forecast">
+                        <h4>date</h4>
+                        <p>Icon thingy</p>
+                        <p class="temp">Temp:</p>
+                        <p class="wind">Wind:</p>
+                        <p class="humidity">Humidity:</p>
+                    </div>
+                
+                    <div class="future-forecast">
+                        <h4>date</h4>
+                        <p>Icon thingy</p>
+                        <p class="temp">Temp:</p>
+                        <p class="wind">Wind:</p>
+                        <p class="humidity">Humidity:</p>
+                    </div>
                 </div>
-
-                <div class="future-forecast">
-                    <h4>date</h4>
-                    <p>Icon thingy</p>
-                    <p class="temp">Temp:</p>
-                    <p class="wind">Wind:</p>
-                    <p class="humidity">Humidity:</p>
-                </div>
-
-                <div class="future-forecast">
-                    <h4>date</h4>
-                    <p>Icon thingy</p>
-                    <p class="temp">Temp:</p>
-                    <p class="wind">Wind:</p>
-                    <p class="humidity">Humidity:</p>
-                </div>
-
-                <div class="future-forecast">
-                    <h4>date</h4>
-                    <p>Icon thingy</p>
-                    <p class="temp">Temp:</p>
-                    <p class="wind">Wind:</p>
-                    <p class="humidity">Humidity:</p>
-                </div>
-
-                <div class="future-forecast">
-                    <h4>date</h4>
-                    <p>Icon thingy</p>
-                    <p class="temp">Temp:</p>
-                    <p class="wind">Wind:</p>
-                    <p class="humidity">Humidity:</p>
-                </div>
+            </section>
         </div>
     </div>
-    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="./script.js"></script>
