@@ -44,10 +44,6 @@ header {
     padding: 10px;
 }
 
-#fiveday {
-    font-weight: bold;
-}
-
 #display-city {
     font-size: 32px;
     font-weight: bold;
@@ -62,12 +58,20 @@ header {
     justify-content: space-between;
 }
 
+h4 {
+    font-size: 20px;
+}
+
+#fiveday {
+    font-weight: bold;
+}
+
 .future-forecast {
     display: inline-block;
     flex-direction: row;
     background: rgb(11, 27, 78);
     color: white;
-    height: 220px;
+    height: 230px;
     width: 170px;
-    padding: 5px;
+    padding: 10px;
 }

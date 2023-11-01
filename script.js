@@ -3,21 +3,52 @@ let currentDate = dayjs().format("MM/DD/YYYY");
 let currentTemp = document.getElementById("currentTemp")
 let currentWind = document.getElementById("currentWind");
 let currentHumidity = document.getElementById("currentHumidity");
+const searchBtn=document.getElementById("searchbtn")
+const forecastEL= document.querySelector(".display-future-forecast")
 let apple = "162c946f49abf4"
 let pear = (3 * 3)
 let orange = "f1000ea571f235be1"
+let cityArray = []
 
-function getCity() {
-    let input = document.getElementById("citysearch")
-    let citySearch = input.value
-    displayCityName.innerHTML = citySearch + " " + currentDate
+cityArray=JSON.parse(localStorage.getItem("searchHistory")) || []
+
+//create function to create the btns -append it to the desired div on index.html
+//create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
+
+//create a function that takes in the city being searched (data.name). get stuff from local storage again. the nif statement to make sure
+//city is not included ib the city array (!cityArray.includes())
+//inside if stament you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
+
+
+function getCity(citySearch) {
+    let cityname = "New York" // test holder for now
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${apple + pear + orange}&units=imperial`)
+        .then(response => response.json())
+        .then(data => {
+            // let weatherData = data;
+            displayWeather(data)
+            getforecast(data.name)
+
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
 
-let cityname = "New York" // test holder for now
-fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apple + pear + orange}&units=imperial`)
-  .then(response => response.json())
-  .then(data => {
-    // let weatherData = data;
+function getforecast(cityName) {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apple + pear + orange}&units=imperial`)
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data);
+            displayForecast(data.list)
+        })
+
+}
+
+function displayWeather(data){
+
+    displayCityName.innerHTML = data.name + " " + currentDate
+
     let weatherTemp = data.main.temp;
     let weatherHumidity = data.main.humidity
     let weatherWind = data.wind.speed;
@@ -31,12 +62,51 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${app
     console.log(data.main.humidity);
     console.log(data.wind);
 
-  })
-  .catch(error => {
-    console.error(error);
-});
+}
 
-// fetch("https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=${apple + pear + orange}&units=imperial")
+function displayForecast(data){
+forecastEL.innerHTML=""
 
-let forecastDate = dayjs().add(1, "day");
-console.log(forecastDate.format("MM/DD/YY"))
+    for (let i = 0; i < 5; i++) {
+        const index= i * 8 + 4
+
+        const div = document.createElement("div")
+        div.setAttribute("class", "future-forecast")
+
+        const h4 = document.createElement("h4")
+        const day = new Date (data[index].dt*1000).toDateString()
+        h4.textContent=day
+
+        const span = document.createElement("span")
+        const icon = document.createElement("img")
+        icon.setAttribute("src", "https://openweathermap.org/img/w/"+ data[index].weather[0].icon+".png")
+
+        const temp=document.createElement("p")
+        temp.setAttribute("class", "twh")
+
+        const wind=document.createElement("p")
+        wind.setAttribute("class", "twh")
+
+        const humidity=document.createElement("p")
+        humidity.setAttribute("class", "twh")
+
+        temp.textContent=`Temp: ${data[index].main.temp} F`
+        humidity.textContent=`Humidity: ${data[index].main.humidity} %`
+        wind.textContent=`Wind Speed: ${data[index].wind.speed} MPH`
+
+        span.append(icon)
+        h4.append(span)
+        div.append(h4, temp, wind, humidity)
+        
+        forecastEL.append(div) 
+    }
+}
+
+searchBtn.addEventListener("click", ()=>{
+    let input = document.getElementById("citysearch")
+    let citySearch = input.value
+    getCity(citySearch)
+})
+
+//use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city 
+//from the button that was clicked
