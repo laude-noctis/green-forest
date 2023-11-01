@@ -1,3 +1,58 @@
-h1 {
-    color: blue;
+header {
+    display: flex;
+    background-color: rgb(22, 43, 114);
+    color: rgb(243, 235, 235);
+    padding: 10px 10px;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 30%;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    border-bottom: black solid 2px;
+    justify-content: space-between;
+}
+
+#searchbtn {
+    border: none;
+    background-color: lightblue
+}
+
+.display-weather {
+    border: black solid 2px;
+}
+
+#fiveday {
+    font-weight: bold;
+}
+
+#display-city {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.display-condition {
+    font-size: 20px;
+}
+
+.future-forecast {
+    display: inline-block;
+    flex-direction: row;
+    background: rgb(20, 95, 26);
+    color: white;
+    height: 200px;
+    width: 150px;
+    padding: 5px;
 }
