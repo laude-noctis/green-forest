@@ -11,8 +11,12 @@ let api = apple + pear + orange
 //inside if statement you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
 
 let cityArray = []
-cityArray = JSON.parse(localStorage.getItem("searchHistory")) || []
+// cityArray = JSON.parse(localStorage.getItem("searchHistory")) || []
 
+function displayLocalStorage() {
+    let history = JSON.parse(localStorage.getItem("searchHistory"))
+    history
+}
 
 function getCity(citySearch) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${api}&units=imperial`)
@@ -29,6 +33,7 @@ function getCity(citySearch) {
 function gatherCityName(citySearch) {
     cityArray.push(citySearch);
     cityArrayLoop();
+    localStorage.setItem("searchHistory", JSON.stringify(cityArray));
 }
 
 searchBtn.addEventListener("click", () => {
@@ -39,7 +44,6 @@ searchBtn.addEventListener("click", () => {
 })
 
 function cityArrayLoop() {
-    //create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
     for (let i = 0; i < cityArray.length; ++i) {
         let cities = cityArray[i];
         createBtnHistory(cities)
@@ -48,7 +52,7 @@ function cityArrayLoop() {
 
 function createBtnHistory(citySearch) {
     let searchHistory = document.getElementById("history-search");
-    
+
     let existingButton = Array.from(searchHistory.children).find(button => button.textContent === citySearch);
   
     if (existingButton) {
@@ -60,14 +64,6 @@ function createBtnHistory(citySearch) {
     btnSearchHistory.textContent = citySearch;
     searchHistory.appendChild(btnSearchHistory);
 }
-
-// function createBtnHistory(citySearch) {
-//     let searchHistory = document.getElementById("history-search");
-//     let btnSearchHistory = document.createElement("button");
-//     btnSearchHistory.classList.add("historyBtn");
-//     btnSearchHistory.textContent = citySearch;
-//     searchHistory.appendChild(btnSearchHistory);
-// }
 
 function getforecast(cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api}&units=imperial`)
@@ -153,5 +149,6 @@ function displayForecast(data) {
     }
 }
 
+displayLocalStorage()
 //use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city 
 //from the button that was clicked
