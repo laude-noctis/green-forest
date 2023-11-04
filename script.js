@@ -1,38 +1,18 @@
 let displayCityName = document.getElementById("display-city");
 let currentDate = dayjs().format("MM/DD/YYYY");
-let currentTemp = document.getElementById("currentTemp")
-let currentWind = document.getElementById("currentWind");
-let currentHumidity = document.getElementById("currentHumidity");
 let searchBtn = document.getElementById("searchbtn")
 let forecastEL = document.querySelector(".display-future-forecast")
 let apple = "162c946f49abf4"
 let pear = (3 * 3)
 let orange = "f1000ea571f235be1"
 let api = apple + pear + orange
+//create a function that takes in the city being searched (data.name). get stuff from local storage again. then if statement to make sure
+//city is not included ib the city array (!cityArray.includes())
+//inside if statement you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
 
 let cityArray = []
 cityArray = JSON.parse(localStorage.getItem("searchHistory")) || []
 
-function createBtnHistory(citySearch) {
-    //create function to create the btns -append it to the desired div on index.html
-    let searchHistory = document.getElementById("history-search");
-    let btnSearchHistory = document.createElement("button");
-    btnSearchHistory.classList.add("historyBtn");
-    btnSearchHistory.textContent = citySearch;
-    searchHistory.appendChild(btnSearchHistory);
-}
-
-// function cityArrayLoop() {
-//     //create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
-//     for (let i = 0; i < cityArray.length; ++i) {
-//         let cities = cityArray[i];
-//         btnSearchHistory(cities)
-//     }
-// }
-
-//create a function that takes in the city being searched (data.name). get stuff from local storage again. then if statement to make sure
-//city is not included ib the city array (!cityArray.includes())
-//inside if statement you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
 
 function getCity(citySearch) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${api}&units=imperial`)
@@ -46,12 +26,33 @@ function getCity(citySearch) {
     });
 }
 
-searchBtn.addEventListener("click", ()=>{
+function gatherCityName(citySearch) {
+    cityArray.push(citySearch);
+    cityArrayLoop();
+}
+
+searchBtn.addEventListener("click", () => {
     let input = document.getElementById("citysearch");
     let citySearch = input.value;
-    createBtnHistory(citySearch);
+    gatherCityName(citySearch)
     getCity(citySearch);
 })
+
+function cityArrayLoop() {
+    //create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
+    for (let i = 0; i < cityArray.length; ++i) {
+        let cities = cityArray[i];
+        createBtnHistory(cities)
+    }
+}
+
+function createBtnHistory(citySearch) {
+    let searchHistory = document.getElementById("history-search");
+    let btnSearchHistory = document.createElement("button");
+    btnSearchHistory.classList.add("historyBtn");
+    btnSearchHistory.textContent = citySearch;
+    searchHistory.appendChild(btnSearchHistory);
+}
 
 function getforecast(cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api}&units=imperial`)
@@ -63,7 +64,10 @@ function getforecast(cityName) {
 
 }
 
-function displayWeather(data){
+function displayWeather(data) {
+    let currentTemp = document.getElementById("currentTemp")
+    let currentWind = document.getElementById("currentWind");
+    let currentHumidity = document.getElementById("currentHumidity");
     let currentIcon = document.createElement("img")
     currentIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
 
@@ -133,7 +137,6 @@ function displayForecast(data) {
         forecastEL.append(div)
     }
 }
-
 
 //use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city 
 //from the button that was clicked
