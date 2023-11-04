@@ -25,20 +25,22 @@ function displayLocalStorage() {
 
 function getCity(citySearch) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${api}&units=imperial`)
-    .then(response => response.json())
-    .then(data => {
-        displayWeather(data)
-        getforecast(data.name)
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            displayWeather(data)
+            getforecast(data.name)
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
 
 function gatherCityName(citySearch) {
+    let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
     cityArray.push(citySearch);
+    history.push(citySearch);
     cityArrayLoop();
-    localStorage.setItem("searchHistory", JSON.stringify(cityArray));
+    localStorage.setItem("searchHistory", JSON.stringify(history));
 }
 
 searchBtn.addEventListener("click", () => {
@@ -59,11 +61,11 @@ function createBtnHistory(citySearch) {
     let searchHistory = document.getElementById("history-search");
 
     let existingButton = Array.from(searchHistory.children).find(button => button.textContent === citySearch);
-  
+
     if (existingButton) {
-      return;
+        return;
     }
-  
+
     let btnSearchHistory = document.createElement("button");
     btnSearchHistory.classList.add("historyBtn");
     btnSearchHistory.textContent = citySearch;
@@ -155,5 +157,5 @@ function displayForecast(data) {
 }
 
 displayLocalStorage()
-//use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city 
+//use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city
 //from the button that was clicked
