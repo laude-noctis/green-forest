@@ -15,13 +15,12 @@ cityArray=JSON.parse(localStorage.getItem("searchHistory")) || []
 //create function to create the btns -append it to the desired div on index.html
 //create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
 
-//create a function that takes in the city being searched (data.name). get stuff from local storage again. the nif statement to make sure
+//create a function that takes in the city being searched (data.name). get stuff from local storage again. then if statement to make sure
 //city is not included ib the city array (!cityArray.includes())
-//inside if stament you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
+//inside if statement you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
 
 
 function getCity(citySearch) {
-    let cityname = "New York" // test holder for now
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${apple + pear + orange}&units=imperial`)
         .then(response => response.json())
         .then(data => {
@@ -46,8 +45,22 @@ function getforecast(cityName) {
 }
 
 function displayWeather(data){
+    let currentIcon = document.createElement("img")
+    currentIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
 
-    displayCityName.innerHTML = data.name + " " + currentDate
+    displayCityName.innerHTML = "";
+
+    let cityNameElement = document.createElement("span");
+    cityNameElement.textContent = data.name;
+
+    let currentDateElement = document.createElement("span");
+    currentDateElement.textContent = currentDate;
+
+    displayCityName.appendChild(cityNameElement);
+    displayCityName.appendChild(document.createTextNode(" "));
+    displayCityName.appendChild(currentDateElement);
+    displayCityName.appendChild(document.createTextNode(" "));
+    displayCityName.appendChild(currentIcon);
 
     let weatherTemp = data.main.temp;
     let weatherHumidity = data.main.humidity
@@ -64,41 +77,41 @@ function displayWeather(data){
 
 }
 
-function displayForecast(data){
-forecastEL.innerHTML=""
+function displayForecast(data) {
+    forecastEL.innerHTML = ""
 
     for (let i = 0; i < 5; i++) {
-        const index= i * 8 + 4
+        const index = i * 8 + 4
 
         const div = document.createElement("div")
         div.setAttribute("class", "future-forecast")
 
         const h4 = document.createElement("h4")
-        const day = new Date (data[index].dt*1000).toDateString()
-        h4.textContent=day
+        const day = new Date(data[index].dt * 1000).toDateString()
+        h4.textContent = day
 
         const span = document.createElement("span")
         const icon = document.createElement("img")
-        icon.setAttribute("src", "https://openweathermap.org/img/w/"+ data[index].weather[0].icon+".png")
+        icon.setAttribute("src", "https://openweathermap.org/img/w/" + data[index].weather[0].icon + ".png")
 
-        const temp=document.createElement("p")
+        const temp = document.createElement("p")
         temp.setAttribute("class", "twh")
 
-        const wind=document.createElement("p")
+        const wind = document.createElement("p")
         wind.setAttribute("class", "twh")
 
-        const humidity=document.createElement("p")
+        const humidity = document.createElement("p")
         humidity.setAttribute("class", "twh")
 
-        temp.textContent=`Temp: ${data[index].main.temp} F`
-        humidity.textContent=`Humidity: ${data[index].main.humidity} %`
-        wind.textContent=`Wind Speed: ${data[index].wind.speed} MPH`
+        temp.textContent = `Temp: ${data[index].main.temp} F`
+        humidity.textContent = `Humidity: ${data[index].main.humidity} %`
+        wind.textContent = `Wind Speed: ${data[index].wind.speed} MPH`
 
         span.append(icon)
         h4.append(span)
         div.append(h4, temp, wind, humidity)
-        
-        forecastEL.append(div) 
+
+        forecastEL.append(div)
     }
 }
 
