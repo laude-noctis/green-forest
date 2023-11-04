@@ -3,14 +3,16 @@ let currentDate = dayjs().format("MM/DD/YYYY");
 let currentTemp = document.getElementById("currentTemp")
 let currentWind = document.getElementById("currentWind");
 let currentHumidity = document.getElementById("currentHumidity");
-const searchBtn=document.getElementById("searchbtn")
-const forecastEL= document.querySelector(".display-future-forecast")
+let searchBtn = document.getElementById("searchbtn")
+let forecastEL = document.querySelector(".display-future-forecast")
 let apple = "162c946f49abf4"
 let pear = (3 * 3)
 let orange = "f1000ea571f235be1"
-let cityArray = []
 
-cityArray=JSON.parse(localStorage.getItem("searchHistory")) || []
+let cityArray = []
+cityArray = JSON.parse(localStorage.getItem("searchHistory")) || []
+
+
 
 //create function to create the btns -append it to the desired div on index.html
 //create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
