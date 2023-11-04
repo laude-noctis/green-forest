@@ -48,11 +48,26 @@ function cityArrayLoop() {
 
 function createBtnHistory(citySearch) {
     let searchHistory = document.getElementById("history-search");
+    
+    let existingButton = Array.from(searchHistory.children).find(button => button.textContent === citySearch);
+  
+    if (existingButton) {
+      return;
+    }
+  
     let btnSearchHistory = document.createElement("button");
     btnSearchHistory.classList.add("historyBtn");
     btnSearchHistory.textContent = citySearch;
     searchHistory.appendChild(btnSearchHistory);
 }
+
+// function createBtnHistory(citySearch) {
+//     let searchHistory = document.getElementById("history-search");
+//     let btnSearchHistory = document.createElement("button");
+//     btnSearchHistory.classList.add("historyBtn");
+//     btnSearchHistory.textContent = citySearch;
+//     searchHistory.appendChild(btnSearchHistory);
+// }
 
 function getforecast(cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api}&units=imperial`)
