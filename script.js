@@ -15,7 +15,8 @@ let cityArray = []
 
 function displayLocalStorage() {
     let history = JSON.parse(localStorage.getItem("searchHistory"))
-    history
+    displayLs = document.getElementById("history-search")
+    displayLs.textContent = history;
 }
 
 function getCity(citySearch) {
