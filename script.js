@@ -6,17 +6,21 @@ let apple = "162c946f49abf4"
 let pear = (3 * 3)
 let orange = "f1000ea571f235be1"
 let api = apple + pear + orange
-//create a function that takes in the city being searched (data.name). get stuff from local storage again. then if statement to make sure
-//city is not included ib the city array (!cityArray.includes())
-//inside if statement you push city into cityArray and then set cittyArray into local storagte. Then you call the function creating the button and pass the name of the city onto it
 
 let cityArray = []
-// cityArray = JSON.parse(localStorage.getItem("searchHistory")) || []
 
 function displayLocalStorage() {
     let history = JSON.parse(localStorage.getItem("searchHistory"))
-    displayLs = document.getElementById("history-search")
-    displayLs.textContent = history;
+    let displayEl = document.getElementById("history-search")
+
+    for (let i = 0; i < history.length; ++i) {
+        let buttonEl = document.createElement("button");
+        let value = history[i];
+        // let value = history.getItem(key);
+        buttonEl.classList.add("historyBtn");
+        buttonEl.textContent = value;
+        displayEl.appendChild(buttonEl);
+    }
 }
 
 function getCity(citySearch) {
