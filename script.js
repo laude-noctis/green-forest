@@ -13,25 +13,22 @@ let api = apple + pear + orange
 let cityArray = []
 cityArray = JSON.parse(localStorage.getItem("searchHistory")) || []
 
-function btnSearchHistory() {
-    let searchHistory = document.getElementById("searchHistory")
-    let btnSearchHistory = document.createElement("button")
-    btnSearchHistory.textContent = data.name
-    searchHistory.appendChild(btnSearchHistory)
+function createBtnHistory(citySearch) {
+    //create function to create the btns -append it to the desired div on index.html
+    let searchHistory = document.getElementById("history-search");
+    let btnSearchHistory = document.createElement("button");
+    btnSearchHistory.classList.add("historyBtn");
+    btnSearchHistory.textContent = citySearch;
+    searchHistory.appendChild(btnSearchHistory);
 }
 
-function cityArrayLoop() {
-    for (let i = 0; i < cityArray.length; ++i) {
-        let cities = cityArray[i];
-        btnSearchHistory(cities)
-    }
-}
-
-function storeCity () {
-    localStorage.setItem("searchHistory", JSON.stringify(cityArray))
-}
-//create function to create the btns -append it to the desired div on index.html
-//create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
+// function cityArrayLoop() {
+//     //create for loop on it's own with cityArray.length - call the function that creates btn inside the for loop
+//     for (let i = 0; i < cityArray.length; ++i) {
+//         let cities = cityArray[i];
+//         btnSearchHistory(cities)
+//     }
+// }
 
 //create a function that takes in the city being searched (data.name). get stuff from local storage again. then if statement to make sure
 //city is not included ib the city array (!cityArray.includes())
@@ -52,8 +49,8 @@ function getCity(citySearch) {
 searchBtn.addEventListener("click", ()=>{
     let input = document.getElementById("citysearch");
     let citySearch = input.value;
+    createBtnHistory(citySearch);
     getCity(citySearch);
-    storeCity();
 })
 
 function getforecast(cityName) {
