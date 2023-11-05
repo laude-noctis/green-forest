@@ -162,12 +162,10 @@ function historyForecast(event) {
   const cityButton = event.target;
   const buttonText = cityButton.textContent;
   console.log(buttonText);
-  displayForecast(buttonText);
+  getCity(buttonText);
 }
 
 displayLocalStorage();
 // todo list
-//use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city
-//from the button that was clicked
 // add if statement for localStorage array to prevent repeated cities
 // add media thingys for search bar to go on top on smaller screens
