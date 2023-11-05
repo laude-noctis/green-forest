@@ -88,3 +88,27 @@ h4 {
     width: 170px;
     padding: 10px;
 }
+
+@media screen and (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        order: 1;
+    }
+
+    .main-content {
+        order: 2;
+    } 
+}
+
+@media screen and (max-width: 768px) {
+    .future-forecast {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
