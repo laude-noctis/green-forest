@@ -14,12 +14,14 @@ function displayLocalStorage() {
     let history = JSON.parse(localStorage.getItem("searchHistory"))
     let displayEl = document.getElementById("history-search")
 
-    for (let i = 0; i < history.length; ++i) {
-        let buttonEl = document.createElement("button");
-        let value = history[i];
-        buttonEl.classList.add("historyBtn");
-        buttonEl.textContent = value;
-        displayEl.appendChild(buttonEl);
+    if (history) {
+        for (let i = 0; i < history.length; ++i) {
+            let buttonEl = document.createElement("button");
+            let value = history[i];
+            buttonEl.classList.add("historyBtn");
+            buttonEl.textContent = value;
+            displayEl.appendChild(buttonEl);
+        }
     }
 }
 
@@ -77,7 +79,7 @@ function getforecast(cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api}&units=imperial`)
         .then(response => response.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             displayForecast(data.list);
         })
 
@@ -112,10 +114,10 @@ function displayWeather(data) {
     currentWind.innerHTML = "Wind: " + weatherWind + " MPH";
     currentHumidity.innerHTML = "Humidity: " + weatherHumidity + "%";
 
-    console.log(data);
-    console.log(data.main.temp);
-    console.log(data.main.humidity);
-    console.log(data.wind);
+    // console.log(data);
+    // console.log(data.main.temp);
+    // console.log(data.main.humidity);
+    // console.log(data.wind);
 
 }
 
@@ -163,7 +165,7 @@ buttonForecast.addEventListener("click", historyForecast);
 function historyForecast(event) {
   const cityButton = event.target;
   const buttonText = cityButton.textContent;
-  console.log(buttonText);
+//   console.log(buttonText);
   getCity(buttonText);
 }
 
