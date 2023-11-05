@@ -163,12 +163,10 @@ let buttonForecast = document.getElementById("history-search");
 buttonForecast.addEventListener("click", historyForecast);
 
 function historyForecast(event) {
-  const cityButton = event.target;
-  const buttonText = cityButton.textContent;
-//   console.log(buttonText);
-  getCity(buttonText);
+    const cityButton = event.target;
+    const buttonText = cityButton.textContent;
+    //   console.log(buttonText);
+    getCity(buttonText);
 }
 
 displayLocalStorage();
-// todo list
-// fix error teeheee
