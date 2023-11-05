@@ -7,6 +7,7 @@ let pear = (3 * 3)
 let orange = "f1000ea571f235be1"
 let api = apple + pear + orange
 
+let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
 let cityArray = []
 
 function displayLocalStorage() {
@@ -16,7 +17,6 @@ function displayLocalStorage() {
     for (let i = 0; i < history.length; ++i) {
         let buttonEl = document.createElement("button");
         let value = history[i];
-        // let value = history.getItem(key);
         buttonEl.classList.add("historyBtn");
         buttonEl.textContent = value;
         displayEl.appendChild(buttonEl);
@@ -27,8 +27,8 @@ function getCity(citySearch) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${api}&units=imperial`)
         .then(response => response.json())
         .then(data => {
-            displayWeather(data)
-            getforecast(data.name)
+            displayWeather(data);
+            getforecast(data.name);
         })
         .catch(error => {
             console.error(error);
@@ -36,7 +36,6 @@ function getCity(citySearch) {
 }
 
 function gatherCityName(citySearch) {
-    let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
     cityArray.push(citySearch);
     history.push(citySearch);
     cityArrayLoop();
@@ -46,14 +45,14 @@ function gatherCityName(citySearch) {
 searchBtn.addEventListener("click", () => {
     let input = document.getElementById("citysearch");
     let citySearch = input.value;
-    gatherCityName(citySearch)
+    gatherCityName(citySearch);
     getCity(citySearch);
 })
 
 function cityArrayLoop() {
     for (let i = 0; i < cityArray.length; ++i) {
         let cities = cityArray[i];
-        createBtnHistory(cities)
+        createBtnHistory(cities);
     }
 }
 
@@ -77,17 +76,17 @@ function getforecast(cityName) {
         .then(response => response.json())
         .then((data) => {
             console.log(data);
-            displayForecast(data.list)
+            displayForecast(data.list);
         })
 
 }
 
 function displayWeather(data) {
-    let currentTemp = document.getElementById("currentTemp")
+    let currentTemp = document.getElementById("currentTemp");
     let currentWind = document.getElementById("currentWind");
     let currentHumidity = document.getElementById("currentHumidity");
-    let currentIcon = document.createElement("img")
-    currentIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
+    let currentIcon = document.createElement("img");
+    currentIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
     displayCityName.innerHTML = "";
 
@@ -104,14 +103,14 @@ function displayWeather(data) {
     displayCityName.appendChild(currentIcon);
 
     let weatherTemp = data.main.temp;
-    let weatherHumidity = data.main.humidity
+    let weatherHumidity = data.main.humidity;
     let weatherWind = data.wind.speed;
 
     currentTemp.innerHTML = "Temp: " + weatherTemp + "℉";
     currentWind.innerHTML = "Wind: " + weatherWind + " MPH";
-    currentHumidity.innerHTML = "Humidity: " + weatherHumidity + "%"
+    currentHumidity.innerHTML = "Humidity: " + weatherHumidity + "%";
 
-    console.log(data)
+    console.log(data);
     console.log(data.main.temp);
     console.log(data.main.humidity);
     console.log(data.wind);
@@ -119,43 +118,56 @@ function displayWeather(data) {
 }
 
 function displayForecast(data) {
-    forecastEL.innerHTML = ""
+    forecastEL.innerHTML = "";
 
     for (let i = 0; i < 5; ++i) {
-        const index = i * 8 + 5
+        const index = i * 8 + 5;
 
-        const div = document.createElement("div")
-        div.setAttribute("class", "future-forecast")
+        const div = document.createElement("div");
+        div.setAttribute("class", "future-forecast");
 
-        const h4 = document.createElement("h4")
-        const day = new Date(data[index].dt * 1000).toDateString()
-        h4.textContent = day
+        const h4 = document.createElement("h4");
+        const day = new Date(data[index].dt * 1000).toDateString();
+        h4.textContent = day;
 
-        const span = document.createElement("span")
-        const icon = document.createElement("img")
-        icon.setAttribute("src", "https://openweathermap.org/img/w/" + data[index].weather[0].icon + ".png")
+        const span = document.createElement("span");
+        const icon = document.createElement("img");
+        icon.setAttribute("src", "https://openweathermap.org/img/w/" + data[index].weather[0].icon + ".png");
 
-        const temp = document.createElement("p")
-        temp.setAttribute("class", "twh")
+        const temp = document.createElement("p");
+        temp.setAttribute("class", "twh");
 
-        const wind = document.createElement("p")
-        wind.setAttribute("class", "twh")
+        const wind = document.createElement("p");
+        wind.setAttribute("class", "twh");
 
-        const humidity = document.createElement("p")
-        humidity.setAttribute("class", "twh")
+        const humidity = document.createElement("p");
+        humidity.setAttribute("class", "twh");
 
-        temp.textContent = `Temp: ${data[index].main.temp} F`
-        humidity.textContent = `Humidity: ${data[index].main.humidity} %`
-        wind.textContent = `Wind Speed: ${data[index].wind.speed} MPH`
+        temp.textContent = `Temp: ${data[index].main.temp} F`;
+        humidity.textContent = `Humidity: ${data[index].main.humidity} %`;
+        wind.textContent = `Wind Speed: ${data[index].wind.speed} MPH`;
 
-        span.append(icon)
-        h4.append(span)
-        div.append(h4, temp, wind, humidity)
+        span.append(icon);
+        h4.append(span);
+        div.append(h4, temp, wind, humidity);
 
-        forecastEL.append(div)
+        forecastEL.append(div);
     }
 }
 
-displayLocalStorage()
+let buttonForecast = document.getElementById("history-search");
+buttonForecast.addEventListener("click", historyForecast);
+
+function historyForecast(event) {
+  const cityButton = event.target;
+  const buttonText = cityButton.textContent;
+  console.log(buttonText);
+  displayForecast(buttonText);
+}
+
+displayLocalStorage();
+// todo list
 //use the class or id of the btn div and use this.event.target.textContent to target the city you want to look for then call getCity and pass the variable that is holding the city
 //from the button that was clicked
+// add if statement for localStorage array to prevent repeated cities
+// add media thingys for search bar to go on top on smaller screens
