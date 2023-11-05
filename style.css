@@ -105,7 +105,7 @@ h4 {
 }
 
 @media screen and (max-width: 768px) {
-    .future-forecast {
+    .display-future-forecast {
       display: flex;
       flex-direction: column;
       width: 100%;

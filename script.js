@@ -36,10 +36,12 @@ function getCity(citySearch) {
 }
 
 function gatherCityName(citySearch) {
-    cityArray.push(citySearch);
-    history.push(citySearch);
-    cityArrayLoop();
-    localStorage.setItem("searchHistory", JSON.stringify(history));
+    if (!cityArray.includes(citySearch)) {
+        cityArray.push(citySearch);
+        history.push(citySearch);
+        cityArrayLoop();
+        localStorage.setItem("searchHistory", JSON.stringify(history));
+    }
 }
 
 searchBtn.addEventListener("click", () => {
@@ -167,5 +169,4 @@ function historyForecast(event) {
 
 displayLocalStorage();
 // todo list
-// add if statement for localStorage array to prevent repeated cities
-// add media thingys for search bar to go on top on smaller screens
+// fix error teeheee
