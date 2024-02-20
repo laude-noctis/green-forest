@@ -2,9 +2,9 @@ let displayCityName = document.getElementById("display-city");
 let currentDate = dayjs().format("MM/DD/YYYY");
 let searchBtn = document.getElementById("searchbtn")
 let forecastEL = document.querySelector(".display-future-forecast")
-let apple = "162c946f49abf4"
+let apple = "3d45b94ae1b31"
 let pear = (3 * 3)
-let orange = "f1000ea571f235be1"
+let orange = "f3ddc7b2211301a4db"
 let api = apple + pear + orange
 
 let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
